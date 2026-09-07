@@ -11,7 +11,7 @@ function App() {
   const [count, setCount] = useState(0)
   
   return (
-    <BrowserRouter path='/Tasks-reminder'>
+    <BrowserRouter basename='/Tasks-reminder'>
       
       <Routes>
         <Route path="/" element={<GetStartes />} />
