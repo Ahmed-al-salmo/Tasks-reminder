@@ -132,7 +132,7 @@ export default function MessagesContainer({sendTo, isRefreash, theme}:{sendTo:st
         fetchUser();
         fetchMessages();
 
-        setInterval(()=>{fetchUser();fetchMessages()},30000);
+        setInterval(()=>{fetchUser();fetchMessages()},10000);
 
     },[sendTo,isRefreash])
 
