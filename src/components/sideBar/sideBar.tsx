@@ -163,7 +163,7 @@ export default function SideBar({setSendTo, isShowSideBar, setIsShowSideBar, set
                             <div key={user.id} className={` flex gap-3 p-2 cursor-pointer ${theme==='light' ? 'text-black hover:bg-gray-400 ' : "hover:bg-gray-600"}`} onClick={()=>addChat(user)}>
                                 {
                                     user.image ? <img src={user.image} alt="" className={'w-[50px] h-[50px] rounded-full bg-red-300 '}  />:
-                                    <FaUser className="w-[50px] h-[50px] bg-gray-500 rounded-full mx-3 " />
+                                    <FaUser className="w-[50px] h-[50px] bg-gray-500 rounded-full " />
                                 }
                                 <div>
                                     <p className="text-xl">{user.userName} {user.email===auth.currentUser?.email? <span className="text-sm">(me)</span>:''} </p>
@@ -177,7 +177,7 @@ export default function SideBar({setSendTo, isShowSideBar, setIsShowSideBar, set
                         <div key={user.id} className={` flex gap-3 p-2 cursor-pointer ${theme==='light' ? 'text-black hover:bg-gray-400 ' : "hover:bg-gray-600"} `} onClick={()=>(setSendTo(user.id), setIsShowSideBar(false), setIsShowSetting(false))}>
                             {
                                 user.image ? <img src={user.image} alt="" className={'w-[50px] h-[50px] rounded-full bg-red-300 '}  />:
-                                <FaUser className="w-[50px] h-[50px] bg-gray-500 rounded-full mx-3 " />
+                                <FaUser className="w-[50px] h-[50px] bg-gray-500 rounded-full  " />
                             }
                             <div>
                                 <p className="text-xl">{user.userName} {user.email===auth.currentUser?.email? <span className="text-sm">(me)</span>:''} </p>
