@@ -5,7 +5,7 @@ import { auth } from "../firebase/config";
 import SideBar from "../components/sideBar/sideBar";
 import TaskPage from "../components/taskPage/taskPage";
 import Setting from "../components/setting/setting";
-import { FaList } from 'react-icons/fa';
+import { FaList, FaArrowRight } from 'react-icons/fa';
 
 
 export default function Home(){
@@ -64,7 +64,7 @@ export default function Home(){
                 isHideEmail={isHideEmail}
                 theme={theme}
             />
-            {!isShowSideBar && <FaList onClick={()=>setIsShowSideBar(true)} className={`fixed top-7 left-6  hover:text-gray-500 cursor-pointer ${theme==='dark'&& 'text-white' } `}  />}
+            {!isShowSideBar && <FaArrowRight onClick={()=>setIsShowSideBar(true)} className={`absolute top-7 left-6  hover:text-gray-500 cursor-pointer ${theme==='dark'&& 'text-white' } `}  />}
             {sentTo!==""?  
                 <TaskPage sentTo={sentTo} theme={theme} />:
                 <div className="w-full h-screen flex justify-center items-center">
