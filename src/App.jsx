@@ -14,7 +14,7 @@ function App() {
     <BrowserRouter>
       
       <Routes>
-        <Route path="/" element={<GetStartes />} />
+        <Route path="/Tasks-reminder" element={<GetStartes />} />
         <Route path="/create-account" element={<CreateAccount />} />
         <Route path="/login" element={<Login />} />
         <Route path="/home" element={<Home />} />
