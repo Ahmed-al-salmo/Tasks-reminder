@@ -33,6 +33,54 @@ export default function MessagesContainer({sendTo, isRefreash, theme}:{sendTo:st
         image:''
     });
     const [isLoading, setIsLoading] = useState<boolean>(true);
+
+    // const fetchUser =async ()=>{
+    //     try{
+    //         const querySnapshot = await getDocs(collection(db, "users"));
+    //         querySnapshot.forEach((doc) => {
+    //             const data = doc.data();
+    //             if(doc.id === sendTo){
+    //                 setUserIdSentTo(data.email);
+    //                 setUserSendToData({
+    //                     id: doc.id,
+    //                     userName: data.userName,
+    //                     email: data.email,
+    //                     image:data.image
+    //                 });
+    //             }
+    //         });
+    //     }catch(error){
+    //         console.error("Error fetching sendTo user ID: ", error);
+    //     }
+    // }
+    // const fetchMessages = async () => {
+    //     try {
+    //         const querySnapshot = await getDocs(collectionRefTasks);
+    //         const messagesData: MessagesType[] = [];
+    //         querySnapshot.forEach((doc) => {
+    //             const data = doc.data();
+                
+    //                 messagesData.push({
+    //                     massageId: doc.id,
+    //                     task: data.task,
+    //                     sendTo: data.sendTo,
+    //                     sendFrom: data.sendFrom,
+    //                     sendTime: data.sendTime,
+    //                     sendHour: data.sendHour,
+    //                     achiveTime: data.achiveTime,
+    //                     status: data.status,
+    //                 });
+                
+    //         });
+    //         console.log("Fetched messages: ", messagesData);
+
+    //         setMessages(messagesData);
+            
+    //     } catch (error) {
+    //         console.error("Error fetching messages: ", error);
+    //     }
+    // };
+
     useEffect(()=>{
         const fetchUser =async ()=>{
             try{
@@ -81,12 +129,14 @@ export default function MessagesContainer({sendTo, isRefreash, theme}:{sendTo:st
             }
         };
 
-        
-
         fetchUser();
         fetchMessages();
 
+        setInterval(()=>{fetchUser();fetchMessages()},30000);
+
     },[sendTo,isRefreash])
+
+    
 
     const handleDeleteMessage = async (messageId: string) => {
         try{
