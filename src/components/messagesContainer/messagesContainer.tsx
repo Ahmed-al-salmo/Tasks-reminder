@@ -1,9 +1,10 @@
 import React,{useState, useEffect} from "react";
-import { db,auth } from "../../firebase/config";
+import { db,auth, realtimeDB } from "../../firebase/config";
 import { collection, getDocs, deleteDoc, doc, updateDoc} from "firebase/firestore";
 import MessageCard from "../messageCard";
 import ChatHeader from "../chatHeader";
 import Loadding from "../loadding";
+import {ref, onValue} from 'firebase/database'
 
 type MessagesType ={
     massageId:string;
@@ -14,6 +15,8 @@ type MessagesType ={
     sendHour:string;
     achiveTime:string;
     status:boolean;
+    timestamp:number
+
 }
 type UserType = {
     id: string;
@@ -34,54 +37,8 @@ export default function MessagesContainer({sendTo, isRefreash, theme}:{sendTo:st
     });
     const [isLoading, setIsLoading] = useState<boolean>(true);
 
-    // const fetchUser =async ()=>{
-    //     try{
-    //         const querySnapshot = await getDocs(collection(db, "users"));
-    //         querySnapshot.forEach((doc) => {
-    //             const data = doc.data();
-    //             if(doc.id === sendTo){
-    //                 setUserIdSentTo(data.email);
-    //                 setUserSendToData({
-    //                     id: doc.id,
-    //                     userName: data.userName,
-    //                     email: data.email,
-    //                     image:data.image
-    //                 });
-    //             }
-    //         });
-    //     }catch(error){
-    //         console.error("Error fetching sendTo user ID: ", error);
-    //     }
-    // }
-    // const fetchMessages = async () => {
-    //     try {
-    //         const querySnapshot = await getDocs(collectionRefTasks);
-    //         const messagesData: MessagesType[] = [];
-    //         querySnapshot.forEach((doc) => {
-    //             const data = doc.data();
-                
-    //                 messagesData.push({
-    //                     massageId: doc.id,
-    //                     task: data.task,
-    //                     sendTo: data.sendTo,
-    //                     sendFrom: data.sendFrom,
-    //                     sendTime: data.sendTime,
-    //                     sendHour: data.sendHour,
-    //                     achiveTime: data.achiveTime,
-    //                     status: data.status,
-    //                 });
-                
-    //         });
-    //         console.log("Fetched messages: ", messagesData);
-
-    //         setMessages(messagesData);
-            
-    //     } catch (error) {
-    //         console.error("Error fetching messages: ", error);
-    //     }
-    // };
-
     useEffect(()=>{
+        
         const fetchUser =async ()=>{
             try{
                 const querySnapshot = await getDocs(collection(db, "users"));
@@ -101,13 +58,15 @@ export default function MessagesContainer({sendTo, isRefreash, theme}:{sendTo:st
                 console.error("Error fetching sendTo user ID: ", error);
             }
         }
+
         const fetchMessages = async () => {
             try {
                 const querySnapshot = await getDocs(collectionRefTasks);
                 const messagesData: MessagesType[] = [];
                 querySnapshot.forEach((doc) => {
                     const data = doc.data();
-                    
+                  
+                    (auth.currentUser?.email === data.sendTo || (auth.currentUser?.email === data.sendFrom))&&
                         messagesData.push({
                             massageId: doc.id,
                             task: data.task,
@@ -117,12 +76,17 @@ export default function MessagesContainer({sendTo, isRefreash, theme}:{sendTo:st
                             sendHour: data.sendHour,
                             achiveTime: data.achiveTime,
                             status: data.status,
+                            timestamp:data.timestamp
                         });
                     
                 });
                 console.log("Fetched messages: ", messagesData);
 
-                setMessages(messagesData);
+                const sortedArray =  messagesData.sort((a:MessagesType , b:MessagesType)=>{
+                    return  a.timestamp - b.timestamp 
+                })
+                
+                setMessages(sortedArray);
                 
             } catch (error) {
                 console.error("Error fetching messages: ", error);
@@ -166,10 +130,11 @@ export default function MessagesContainer({sendTo, isRefreash, theme}:{sendTo:st
     return(
         <div  className={`w-full h-[90%] border-t-1 border-b-1 border-gray-300 overflow-auto flex flex-col ${theme==='dark' ? 'bg-gray-800': 'bg-gray-100 ' }`}>
             <ChatHeader theme={theme} userName={userSendToData.userName} image={userSendToData.image}/>
-            <p className="bg-gray-400 w-[200px] text-center rounded-xl  py-1 self-center m-2 font-bold text-white">lets start tasking</p>
+            {/* { messages.length ===0 ? <p className="bg-gray-400 w-[200px] text-center rounded-xl  py-1 self-center m-2 font-bold text-white">lets start tasking</p>:""} */}
             {   
                 messages.length >0 ?
                         messages.map((message)=>(
+                            // (message.sendTo === auth.currentUser?.email && message.sendFrom === userIdSentTo) || (message.sendFrom === auth.currentUser?.email && message.sendTo === userIdSentTo) ?
                             (message.sendTo === auth.currentUser?.email && message.sendFrom === userIdSentTo) || (message.sendFrom === auth.currentUser?.email && message.sendTo === userIdSentTo) ?
                             <MessageCard 
                                 massageId={message.massageId} 
@@ -186,7 +151,7 @@ export default function MessagesContainer({sendTo, isRefreash, theme}:{sendTo:st
                         ))
                     
                 
-                :<div className="flex justify-center items-center h-[100px] "> <Loadding style1=" w-[40px] h-[40px] " style2={` ${theme==='dark' ? 'bg-gray-800': 'bg-gray-300'} `} /> </div>
+                :<p className="bg-gray-400 w-[200px] text-center rounded-xl  py-1 self-center m-2 font-bold text-white">lets start tasking</p>
             }
         </div>
     )

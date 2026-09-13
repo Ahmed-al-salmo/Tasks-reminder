@@ -7,6 +7,8 @@ import { useNavigate } from "react-router-dom";
 import { collection, addDoc } from "firebase/firestore";
 import ErrorNotification from "../errorNotification";
 import Loadding from "../loadding";
+import { FaPaperPlane } from "react-icons/fa";
+
 
 type createAccountInputs ={
     label: string;
@@ -175,7 +177,7 @@ export default function CreateAccount({setIsLogin,theme}: CreateAccountProps) {
     return(
         <form className={` w-[450px]  p-4  rounded-lg border-2 border-black shadow-xl/40 max-[500px]:w-[90%] ${theme==='dark' ? 'bg-gray-600  shadow-white': 'bg-gray-200' }`} >
             {errorData.isError && <ErrorNotification errorMessage={errorData.errorMessage} setErrorData={setErrorData} />}
-            <div className="w-[100px] h-[100px] bg-green-200 m-auto border-1 border-black mb-[50px] mt-[25px]" ></div>
+            <FaPaperPlane className="w-[100px] h-[100px] text-blue-400 m-auto mb-[50px] mt-[25px]" />
             {
                 createAccountInputsValus.map((input, index) => {
                     return(

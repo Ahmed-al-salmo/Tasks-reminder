@@ -161,7 +161,7 @@ export default function Setting({setIsShowSetting, isShowSetting,setIsRefresh,is
         } >
             <FaArrowLeft 
                 onClick={()=>setIsShowSetting(false)} 
-                className={`text-xl  cursor-pointer hover:text-gray-500 z-100  m-2 ${theme==='light' && 'text-black'}`}
+                className={` text-xl  cursor-pointer hover:text-gray-500 z-100  m-2 ${theme==='light' && 'text-black'}`}
             />
             <div className={`p-4 ${theme==='light' && 'text-black'} `}>
                 <div className=" relative  w-fit"  >

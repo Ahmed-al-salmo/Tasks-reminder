@@ -37,7 +37,7 @@ export default function MessageCard({task,massageId,sendFrom,sendTime,status,sen
                         <FaCheckCircle className=" text-green-500 bg-white rounded-full text-xl" />
                     }
                 </div>
-                <p className="text-xs">{sendHour.substring(0,5)}</p>
+                <p className="text-xs">{sendHour}</p>
             </div>
         </div>
     );
