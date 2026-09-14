@@ -128,7 +128,7 @@ export default function MessagesContainer({sendTo, isRefreash, theme}:{sendTo:st
     }
 
     return(
-        <div  className={` w-full h-[80%] border-t-1 border-b-1 border-gray-300 overflow-y-auto flex flex-col ${theme==='dark' ? 'bg-gray-800': 'bg-gray-100 ' }`}>
+        <div  className={` w-full h-[90%] border-t-1 border-b-1 border-gray-300 overflow-y-auto flex flex-col ${theme==='dark' ? 'bg-gray-800': 'bg-gray-100 ' }`}>
             <div className=" h-[70px] w-full">
                 <ChatHeader theme={theme} userName={userSendToData.userName} image={userSendToData.image}/>
             </div>

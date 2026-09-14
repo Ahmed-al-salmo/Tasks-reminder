@@ -88,7 +88,8 @@ export default function SideBar({setSendTo, isShowSideBar, setIsShowSideBar, set
         }
         fetchChats()
         fetchUsers();
-        
+
+        setInterval(()=>{fetchChats();fetchUsers()},5000);
     },[isRefresh,isHideEmail])
 
     const filteringUser = (e:string)=>{
