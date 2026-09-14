@@ -44,7 +44,7 @@ export default function Home(){
     },[isRefresh])
     
     return (
-        <div className={`relative h-screen w-screen ${theme==='dark'&& 'bg-gray-800'}`} >
+        <div className={`relative h-screen w-full ${theme==='dark'&& 'bg-gray-800'}`} >
             {/* <NavBar /> */}
             
             <SideBar 

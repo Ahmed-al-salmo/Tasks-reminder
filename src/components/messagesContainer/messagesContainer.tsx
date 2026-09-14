@@ -128,13 +128,15 @@ export default function MessagesContainer({sendTo, isRefreash, theme}:{sendTo:st
     }
 
     return(
-        <div  className={`w-full h-[90%] border-t-1 border-b-1 border-gray-300 overflow-auto flex flex-col ${theme==='dark' ? 'bg-gray-800': 'bg-gray-100 ' }`}>
-            <ChatHeader theme={theme} userName={userSendToData.userName} image={userSendToData.image}/>
+        <div  className={` w-full h-[80%] border-t-1 border-b-1 border-gray-300 overflow-y-auto flex flex-col ${theme==='dark' ? 'bg-gray-800': 'bg-gray-100 ' }`}>
+            <div className=" h-[70px] w-full">
+                <ChatHeader theme={theme} userName={userSendToData.userName} image={userSendToData.image}/>
+            </div>
             {/* { messages.length ===0 ? <p className="bg-gray-400 w-[200px] text-center rounded-xl  py-1 self-center m-2 font-bold text-white">lets start tasking</p>:""} */}
             {   
                 messages.length >0 ?
                         messages.map((message)=>(
-                            // (message.sendTo === auth.currentUser?.email && message.sendFrom === userIdSentTo) || (message.sendFrom === auth.currentUser?.email && message.sendTo === userIdSentTo) ?
+                            
                             (message.sendTo === auth.currentUser?.email && message.sendFrom === userIdSentTo) || (message.sendFrom === auth.currentUser?.email && message.sendTo === userIdSentTo) ?
                             <MessageCard 
                                 massageId={message.massageId} 

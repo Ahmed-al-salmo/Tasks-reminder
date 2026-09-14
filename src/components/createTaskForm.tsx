@@ -140,7 +140,7 @@ export default function CreateTaskForm({sentTo, setIsRefreash,theme}:{sentTo:str
     // };
 
     return(
-            <form className={` fixed w-full flex items-center gap-2 p-2  ${theme==='dark'? 'bg-gray-800 text-white': 'bg-white' }`}>
+            <form className={` fixed bottom-0 w-full flex items-center gap-2 p-2  ${theme==='dark'? 'bg-gray-800 text-white': 'bg-white' }`}>
                 <input onChange={(e)=>setTaskInput({...taskInput ,task:e.target.value})} value={taskInput.task || ""} type="text" placeholder="Enter task..." className="  border border-gray-500 rounded-full p-2 w-full shadow-lg/20 outline-none pr-14" />
                 
                 <div onClick={submitHandler} className="  rounded-full border-1 border-gray-500 w-[40px] h-[40px] text-blue-500 flex items-center justify-center hover:text-blue-700  cursor-pointer">
